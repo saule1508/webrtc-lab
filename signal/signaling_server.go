@@ -56,29 +56,6 @@ func sendHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// receiveHandler allows clients to register for receiving messages
-// func receiveHandler(w http.ResponseWriter, r *http.Request) {
-// 	// Generate a unique ID for the client (could be a session ID, etc.)
-// 	clientID := r.URL.Query().Get("id")
-// 	if clientID == "" {
-// 		http.Error(w, "missing client ID", http.StatusBadRequest)
-// 		return
-// 	}
-// 	logger.Info("receive registered", "id", clientID)
-
-// 	mu.Lock()
-// 	ch := make(chan SignalingMessage)
-// 	messageStore[clientID] = ch
-// 	mu.Unlock()
-
-// 	// Wait and send responses
-// 	for msg := range ch {
-// 		if err := json.NewEncoder(w).Encode(msg); err != nil {
-// 			break
-// 		}
-// 	}
-// }
-
 func receiveHandler(w http.ResponseWriter, r *http.Request) {
 	// Get the client ID
 	clientID := r.URL.Query().Get("id")

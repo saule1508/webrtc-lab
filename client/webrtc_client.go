@@ -14,6 +14,7 @@ import (
 	"github.com/pion/webrtc/v3"
 )
 
+// unique ID for the two peers
 const offerPeerID = "offer-peer-1"
 const answerPeerID = "answer-peer-1"
 
@@ -24,7 +25,7 @@ type SignalingMessage struct {
 	From    string `json:"from"`
 }
 
-var clientID = offerPeerID
+var clientID
 var remoteSignal = make(chan SignalingMessage)
 var logger = slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{AddSource: true, Level: slog.LevelInfo}))
 var signalingServer *string
@@ -60,11 +61,11 @@ func main() {
 		}
 	}
 	iceServersURL := []string{
-		"stun:turn1.usrvpn.sandbox.apac.giservices.io:443",
+		"stun:stun.l.google.com:19302",
 	}
 	if *withTurn {
 		logger.Info("Using TURN")
-		iceServersURL = append(iceServersURL, "turns:turn1.usrvpn.sandbox.apac.giservices.io:443?transport=tcp")
+		iceServersURL = append(iceServersURL, "turns:turn1.critiqueslibres.com:443?transport=tcp")
 	} else {
 		logger.Info("Not using TURN")
 	}
